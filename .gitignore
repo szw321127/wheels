@@ -1,1 +1,9 @@
+dist
 node_modules
+temp
+explorations
+*.log
+.idea
+.eslintcache
+*.tsbuildinfo
+*.tgz
