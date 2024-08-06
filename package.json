@@ -1,7 +1,6 @@
 {
-  "name": "wheel",
+  "name": "wheels",
   "license": "MIT",
-  "packageManager": "pnpm@8.12.0",
   "type": "module",
   "private": true,
   "version": "1.0.0",

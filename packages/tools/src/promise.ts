@@ -1,5 +1,5 @@
-import { isPromiseLike } from "@wheel/utils";
-import type { IMyPromise, HandlerType, OnFulFilledType, OnRejectedType, ResloveType, RejectType, AllResult } from "@wheel/types";
+import { isPromiseLike } from "@wheels/utils";
+import type { IMyPromise, HandlerType, OnFulFilledType, OnRejectedType, ResloveType, RejectType, AllResult } from "@wheels/types";
 
 enum State {
   PENDING = "pending",
