@@ -45,8 +45,19 @@ pnpm i -w
 ```
 
 ### 待开发内容
-- AsyncToSync 异步转同步
-- Memo 记忆函数
-- LRU 最近最少使用
-- Task 控制并发任务数量
-- Cancel 取消任务
+- AsyncToSync（异步转同步）
+- Memo（记忆函数）
+- LRU（最近最少使用）
+- Task（任务队列）
+- Cancelable（可取消的 Promise）
+
+### 已开发内容
+- Promise（自定义版 Promise）
+
+
+**注意：**
+- 包目录下，`src` 目录下的文件为源码文件，`index.ts` 为源码入口文件。
+- 有新的包，在 `packages` 目录下新建一个文件夹，然后在新建的文件夹中新建 `src`、`index.ts`、`package.json` 三个文件。
+- 包名以 `@wheels/` 开头，例如：`@wheels/tools`。
+- 有不错的 Tool 想法可以在上述待开发内容中补充。
+- 开发完后要更新 `README.md`。
