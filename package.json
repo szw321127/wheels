@@ -1,0 +1,45 @@
+{
+  "name": "wheel",
+  "license": "MIT",
+  "type": "module",
+  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "author": "",
+  "keywords": [],
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint --cache .",
+    "format": "prettier --write --cache .",
+    "format-check": "prettier --check --cache ."
+  },
+  "lint-staged": {
+    "*.{js,json}": [
+      "prettier --write"
+    ],
+    "*.ts?(x)": [
+      "eslint --fix",
+      "prettier --parser=typescript --write"
+    ]
+  },
+  "devDependencies": {
+    "@types/node": "^22.1.0",
+    "eslint": "^9.8.0",
+    "eslint-plugin-import-x": "^3.1.0",
+    "prettier": "^3.3.3",
+    "typescript": "^5.5.4",
+    "typescript-eslint": "^8.0.1"
+  },
+  "pnpm": {
+    "peerDependencyRules": {
+      "allowedVersions": {
+        "typescript-eslint>eslint": "^9.0.0",
+        "@typescript-eslint/eslint-plugin>eslint": "^9.0.0",
+        "@typescript-eslint/parser>eslint": "^9.0.0",
+        "@typescript-eslint/type-utils>eslint": "^9.0.0",
+        "@typescript-eslint/utils>eslint": "^9.0.0"
+      }
+    }
+  }
+}
