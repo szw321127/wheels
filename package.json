@@ -20,6 +20,11 @@
     "format": "prettier --write --cache .",
     "format-check": "prettier --check --cache ."
   },
+  "exports": {
+    ".": {
+      "default": "./core/index.ts"
+    }
+  },
   "lint-staged": {
     "*.{js,json}": [
       "prettier --write"
