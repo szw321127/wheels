@@ -1,5 +1,5 @@
 import { isPromiseLike } from "@wheels/utils";
-import type { IMyPromise, HandlerType, OnFulFilledType, OnRejectedType, ResloveType, RejectType, AllResult } from "@wheels/types";
+import type { IMyPromise, HandlerType, OnFulFilledType, OnRejectedType, ResolveType, RejectType, AllResult } from "@wheels/types";
 
 enum State {
   PENDING = "pending",
@@ -12,15 +12,15 @@ export class MyPromise<T> implements IMyPromise<T> {
   private handlers: HandlerType[] = [];
   private result: T | any;
 
-  constructor(executor: (reslove: ResloveType<T>, reject: RejectType) => void) {
-    const reslove: ResloveType<T> = (result?: T | PromiseLike<T>) => {
+  constructor(executor: (resolve: ResolveType<T>, reject: RejectType) => void) {
+    const resolve: ResolveType<T> = (result?: T | PromiseLike<T>) => {
       this.changeState(State.FULFILLED, result);
     };
     const reject: RejectType = (reason: any) => {
       this.changeState(State.REJECTED, reason);
     };
     try {
-      executor(reslove, reject);
+      executor(resolve, reject);
     } catch (error) {
       reject(error);
     }
@@ -45,7 +45,7 @@ export class MyPromise<T> implements IMyPromise<T> {
 
   private runOne(
     callback: OnFulFilledType<T, any> | OnRejectedType<any> | undefined,
-    reslove: ResloveType<any>,
+    resolve: ResolveType<any>,
     reject: RejectType
   ) {
     this.runMicroTask(() => {
@@ -53,15 +53,15 @@ export class MyPromise<T> implements IMyPromise<T> {
         try {
           const data = callback(this.result);
           if (isPromiseLike(data)) {
-            data.then(reslove, reject);
+            data.then(resolve, reject);
           } else {
-            reslove(data);
+            resolve(data);
           }
         } catch (error) {
           reject(error);
         }
       } else {
-        const settled = this.state === State.FULFILLED ? reslove : reject;
+        const settled = this.state === State.FULFILLED ? resolve : reject;
         settled(this.result);
       }
     });
@@ -70,11 +70,11 @@ export class MyPromise<T> implements IMyPromise<T> {
   private run() {
     if (this.state === State.PENDING) return;
     while (this.handlers.length) {
-      const { onfulfilled, onrejected, reslove, reject } = this.handlers.shift() as HandlerType;
+      const { onfulfilled, onrejected, resolve, reject } = this.handlers.shift() as HandlerType;
       if (this.state === State.FULFILLED) {
-        this.runOne(onfulfilled, reslove, reject);
+        this.runOne(onfulfilled, resolve, reject);
       } else if (this.state === State.REJECTED) {
-        this.runOne(onrejected, reslove, reject);
+        this.runOne(onrejected, resolve, reject);
       }
     }
   }
@@ -87,15 +87,15 @@ export class MyPromise<T> implements IMyPromise<T> {
   }
 
   public then<TR, TF = never>(onfulfilled?: OnFulFilledType<T, TR>, onrejected?: OnRejectedType<TF>) {
-    return new MyPromise<TR | TF>((reslove, reject) => {
-      this.handlers.push({ onfulfilled, onrejected, reslove, reject });
+    return new MyPromise<TR | TF>((resolve, reject) => {
+      this.handlers.push({ onfulfilled, onrejected, resolve, reject });
       this.run();
     });
   }
 
   public catch<TF = never>(onrejected?: OnRejectedType<TF>) {
-    return new MyPromise<TF>((reslove, reject) => {
-      this.handlers.push({ onrejected, reslove, reject });
+    return new MyPromise<TF>((resolve, reject) => {
+      this.handlers.push({ onrejected, resolve, reject });
       this.run();
     });
   }
@@ -103,8 +103,8 @@ export class MyPromise<T> implements IMyPromise<T> {
   static resolve<T>(result?: T) {
     return isPromiseLike(result)
       ? (result as IMyPromise<any>)
-      : new MyPromise<T>((reslove) => {
-          reslove(result);
+      : new MyPromise<T>((resolve) => {
+          resolve(result);
         });
   }
 
@@ -115,14 +115,14 @@ export class MyPromise<T> implements IMyPromise<T> {
   }
 
   static all<T extends readonly unknown[] | []>(values: T): MyPromise<AllResult<T>> {
-    return new MyPromise((reslove, reject) => {
+    return new MyPromise((resolve, reject) => {
       const result: Awaited<T[number]>[] = [];
       let count = 0;
       for (let i = 0, len = values.length; i < len; i++) {
         (MyPromise.resolve(values[i]) as MyPromise<Awaited<T[number]>>).then((res) => {
           result[i] = res;
           count++;
-          if (count === len) reslove(result as AllResult<T>);
+          if (count === len) resolve(result as AllResult<T>);
         }, reject);
       }
     });

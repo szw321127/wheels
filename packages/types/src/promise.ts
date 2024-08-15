@@ -7,7 +7,7 @@ export interface IMyPromise<T> {
 	catch<TResult>(onrejected?: OnRejectedType<TResult>): PromiseLike<TResult>
 }
 
-export type ResloveType<T> = (result?: T | PromiseLike<T>) => void
+export type ResolveType<T> = (result?: T | PromiseLike<T>) => void
 
 export type RejectType<T = any> = (reason?: T) => void
 
@@ -18,7 +18,7 @@ export type OnRejectedType<T> = ((...args: any) => T | PromiseLike<T>) | null
 export type HandlerType = {
 	onfulfilled?: OnFulFilledType<any, any>
 	onrejected?: OnRejectedType<any>
-	reslove: ResloveType<any>
+	resolve: ResolveType<any>
 	reject: RejectType
 }
 
