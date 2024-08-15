@@ -22,7 +22,7 @@ pnpm i -w
 ```bash
 ├── dist                  # 打包目录
 ├── packages              # 包目录
-    ├── tools             # 工具包目录
+    ├── core              # 源码包目录
         ├── src           # 源码目录
             ├── *.ts      # 源码文件
         ├── index.ts      # 源码入口文件
