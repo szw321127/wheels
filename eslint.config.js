@@ -83,7 +83,7 @@ export default tseslint.config(
 
   // Packages targeting Node
   {
-    files: ['packages/tools/**'],
+    files: ['packages/core/**'],
     rules: {
       'no-restricted-globals': ['error', ...DOMGlobals],
       'no-restricted-syntax': ['error', banConstEnum],

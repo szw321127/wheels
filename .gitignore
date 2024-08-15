@@ -1,5 +1,6 @@
 dist
 node_modules
+packages/**/node_modules
 temp
 explorations
 *.log
