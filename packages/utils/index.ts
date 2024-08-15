@@ -1,1 +1,1 @@
-export * from "./src/promise"
+export * from './src/promise'

@@ -101,11 +101,7 @@ export default tseslint.config(
 
   // Node scripts
   {
-    files: [
-      'eslint.config.js',
-      './*.{js,ts}',
-      'packages/*/*.js',
-    ],
+    files: ['eslint.config.js', './*.{js,ts}', 'packages/*/*.js'],
     rules: {
       'no-restricted-globals': 'off',
       'no-restricted-syntax': ['error', banConstEnum],

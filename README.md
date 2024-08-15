@@ -63,7 +63,6 @@ pnpm i --save-dev <package> -r --filter @wheels/<subpackage>
 
 ### 待开发内容
 
-- AsyncToSync（异步转同步）
 - Memo（记忆函数）
 - LRU（最近最少使用）
 - Task（任务队列）
@@ -72,6 +71,17 @@ pnpm i --save-dev <package> -r --filter @wheels/<subpackage>
 ### 已开发内容
 
 - Promise（自定义版 Promise）
+- FetchToSync（异步转同步）
+
+### 开发流程
+1. 在 `packages` 目录下新建一个文件夹，然后在新建的文件夹中新建 `src`、`index.ts`、`package.json` 三个文件。
+2. 在 `src` 目录下新建一个 `*.ts` 文件，然后编写代码。
+3. 在 `index.ts` 中导出代码。
+4. 开发完可以使用 `example` 子包在 `src` 目录下编写示例代码，运行 `npm run dev` 查看效果。
+5. 开发完后要更新 `README.md`。
+6. 代码提交前运行 `npm run format-check --write` 检测并自动 `format` 代码格式。
+7. 提交代码。
+
 
 **注意：**
 
