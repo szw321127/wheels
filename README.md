@@ -65,13 +65,13 @@ pnpm i --save-dev <package> -r --filter @wheels/<subpackage>
 
 - Memo（记忆函数）
 - LRU（最近最少使用）
-- Task（任务队列）
 - Cancelable（可取消的 Promise）
 
 ### 已开发内容
 
 - Promise（自定义版 Promise）
 - FetchToSync（异步转同步）
+- Task（任务队列）
 
 ### 开发流程
 1. 在 `packages` 目录下新建一个文件夹，然后在新建的文件夹中新建 `src`、`index.ts`、`package.json` 三个文件。
